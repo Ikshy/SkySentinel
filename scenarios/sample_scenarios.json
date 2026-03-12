@@ -1,0 +1,300 @@
+{
+  "_comment": "SkySentinel — Predefined Threat Scenarios. Each scenario defines one or more targets with explicit kinematic and signature parameters. Used by scenarios/scenario_loader.py and the CLI --scenario flag.",
+
+  "scenarios": {
+
+    "single_missile": {
+      "description": "Single inbound ballistic missile at high altitude and speed.",
+      "difficulty": "easy",
+      "targets": [
+        {
+          "id": "TGT-01",
+          "threat_type": "ballistic_missile",
+          "start_range_km": 350,
+          "start_bearing_deg": 45,
+          "start_altitude_m": 45000,
+          "speed_mps": 2800,
+          "heading_toward_radar": true,
+          "rcs_m2": 0.05,
+          "rcs_model": "swerling1",
+          "manoeuvre_sigma_a": 5.0,
+          "notes": "Re-entry body, low RCS, high Doppler"
+        }
+      ]
+    },
+
+    "drone_swarm": {
+      "description": "Five small UAVs approaching from different bearings at low altitude.",
+      "difficulty": "hard",
+      "targets": [
+        {
+          "id": "UAV-01",
+          "threat_type": "drone_small",
+          "start_range_km": 55,
+          "start_bearing_deg": 10,
+          "start_altitude_m": 150,
+          "speed_mps": 25,
+          "heading_toward_radar": true,
+          "rcs_m2": 0.01,
+          "rcs_model": "swerling2",
+          "manoeuvre_sigma_a": 10.0,
+          "notes": "Micro-UAV, very low RCS, strong ground clutter masking"
+        },
+        {
+          "id": "UAV-02",
+          "threat_type": "drone_small",
+          "start_range_km": 62,
+          "start_bearing_deg": 35,
+          "start_altitude_m": 200,
+          "speed_mps": 30,
+          "heading_toward_radar": true,
+          "rcs_m2": 0.012,
+          "rcs_model": "swerling2",
+          "manoeuvre_sigma_a": 10.0
+        },
+        {
+          "id": "UAV-03",
+          "threat_type": "drone_medium",
+          "start_range_km": 80,
+          "start_bearing_deg": 60,
+          "start_altitude_m": 300,
+          "speed_mps": 45,
+          "heading_toward_radar": true,
+          "rcs_m2": 0.08,
+          "rcs_model": "swerling1",
+          "manoeuvre_sigma_a": 8.0
+        },
+        {
+          "id": "UAV-04",
+          "threat_type": "drone_small",
+          "start_range_km": 70,
+          "start_bearing_deg": 110,
+          "start_altitude_m": 120,
+          "speed_mps": 20,
+          "heading_toward_radar": true,
+          "rcs_m2": 0.008,
+          "rcs_model": "swerling2",
+          "manoeuvre_sigma_a": 12.0
+        },
+        {
+          "id": "UAV-05",
+          "threat_type": "drone_small",
+          "start_range_km": 48,
+          "start_bearing_deg": 160,
+          "start_altitude_m": 180,
+          "speed_mps": 22,
+          "heading_toward_radar": true,
+          "rcs_m2": 0.01,
+          "rcs_model": "swerling2",
+          "manoeuvre_sigma_a": 10.0
+        }
+      ]
+    },
+
+    "mixed_threat": {
+      "description": "Simultaneous cruise missile, drone, fighter jet, and commercial aircraft. Tests classifier separation and tracker under mixed-mode traffic.",
+      "difficulty": "medium",
+      "targets": [
+        {
+          "id": "CM-01",
+          "threat_type": "cruise_missile",
+          "start_range_km": 250,
+          "start_bearing_deg": 30,
+          "start_altitude_m": 120,
+          "speed_mps": 280,
+          "heading_toward_radar": true,
+          "rcs_m2": 0.1,
+          "rcs_model": "swerling1",
+          "manoeuvre_sigma_a": 15.0,
+          "notes": "Sea-skimmer, terrain following"
+        },
+        {
+          "id": "UAV-01",
+          "threat_type": "drone_medium",
+          "start_range_km": 85,
+          "start_bearing_deg": 120,
+          "start_altitude_m": 500,
+          "speed_mps": 65,
+          "heading_toward_radar": true,
+          "rcs_m2": 0.09,
+          "rcs_model": "swerling2",
+          "manoeuvre_sigma_a": 8.0
+        },
+        {
+          "id": "FJ-01",
+          "threat_type": "fighter_jet",
+          "start_range_km": 180,
+          "start_bearing_deg": 270,
+          "start_altitude_m": 8000,
+          "speed_mps": 380,
+          "heading_toward_radar": true,
+          "rcs_m2": 4.5,
+          "rcs_model": "swerling3",
+          "manoeuvre_sigma_a": 50.0,
+          "notes": "High manoeuvre target, tests Kalman process noise"
+        },
+        {
+          "id": "AC-01",
+          "threat_type": "commercial_aircraft",
+          "start_range_km": 350,
+          "start_bearing_deg": 190,
+          "start_altitude_m": 10500,
+          "speed_mps": 245,
+          "heading_toward_radar": false,
+          "rcs_m2": 28.0,
+          "rcs_model": "constant",
+          "manoeuvre_sigma_a": 1.5,
+          "notes": "Non-threat, constant velocity, used to test false-alarm rate"
+        }
+      ]
+    },
+
+    "saturation_attack": {
+      "description": "Eight simultaneous inbound threats from multiple bearings. Designed to stress-test track initiation, data association, and classifier throughput.",
+      "difficulty": "extreme",
+      "targets": [
+        {
+          "id": "CM-01", "threat_type": "cruise_missile",
+          "start_range_km": 180, "start_bearing_deg": 10,
+          "start_altitude_m": 80, "speed_mps": 290,
+          "heading_toward_radar": true, "rcs_m2": 0.09,
+          "rcs_model": "swerling1", "manoeuvre_sigma_a": 15.0
+        },
+        {
+          "id": "CM-02", "threat_type": "cruise_missile",
+          "start_range_km": 210, "start_bearing_deg": 30,
+          "start_altitude_m": 100, "speed_mps": 310,
+          "heading_toward_radar": true, "rcs_m2": 0.11,
+          "rcs_model": "swerling1", "manoeuvre_sigma_a": 14.0
+        },
+        {
+          "id": "BM-01", "threat_type": "ballistic_missile",
+          "start_range_km": 320, "start_bearing_deg": 60,
+          "start_altitude_m": 55000, "speed_mps": 3200,
+          "heading_toward_radar": true, "rcs_m2": 0.06,
+          "rcs_model": "swerling1", "manoeuvre_sigma_a": 5.0
+        },
+        {
+          "id": "UAV-01", "threat_type": "drone_medium",
+          "start_range_km": 90, "start_bearing_deg": 90,
+          "start_altitude_m": 400, "speed_mps": 55,
+          "heading_toward_radar": true, "rcs_m2": 0.08,
+          "rcs_model": "swerling2", "manoeuvre_sigma_a": 9.0
+        },
+        {
+          "id": "UAV-02", "threat_type": "drone_small",
+          "start_range_km": 60, "start_bearing_deg": 130,
+          "start_altitude_m": 150, "speed_mps": 28,
+          "heading_toward_radar": true, "rcs_m2": 0.01,
+          "rcs_model": "swerling2", "manoeuvre_sigma_a": 12.0
+        },
+        {
+          "id": "UAV-03", "threat_type": "drone_small",
+          "start_range_km": 75, "start_bearing_deg": 150,
+          "start_altitude_m": 200, "speed_mps": 32,
+          "heading_toward_radar": true, "rcs_m2": 0.012,
+          "rcs_model": "swerling2", "manoeuvre_sigma_a": 11.0
+        },
+        {
+          "id": "FJ-01", "threat_type": "fighter_jet",
+          "start_range_km": 220, "start_bearing_deg": 200,
+          "start_altitude_m": 6000, "speed_mps": 450,
+          "heading_toward_radar": true, "rcs_m2": 5.0,
+          "rcs_model": "swerling3", "manoeuvre_sigma_a": 50.0
+        },
+        {
+          "id": "CM-03", "threat_type": "cruise_missile",
+          "start_range_km": 195, "start_bearing_deg": 300,
+          "start_altitude_m": 90, "speed_mps": 275,
+          "heading_toward_radar": true, "rcs_m2": 0.1,
+          "rcs_model": "swerling1", "manoeuvre_sigma_a": 15.0
+        }
+      ]
+    },
+
+    "jamming_test": {
+      "description": "Single cruise missile inbound with active barrage jamming from a stand-off jammer. Tests CFAR robustness and MTI filter effectiveness.",
+      "difficulty": "hard",
+      "jamming": {
+        "enabled": true,
+        "jam_type": "barrage",
+        "jnr_db": 20,
+        "affected_range_fraction": 0.7
+      },
+      "targets": [
+        {
+          "id": "CM-01", "threat_type": "cruise_missile",
+          "start_range_km": 200, "start_bearing_deg": 45,
+          "start_altitude_m": 100, "speed_mps": 300,
+          "heading_toward_radar": true, "rcs_m2": 0.1,
+          "rcs_model": "swerling1", "manoeuvre_sigma_a": 14.0,
+          "notes": "Target masked by barrage jammer — tests ECCM"
+        }
+      ]
+    },
+
+    "spoofing_test": {
+      "description": "Two real targets plus two DRFM-spoofed ghost targets injected by an adversary. Tests tracker discrimination.",
+      "difficulty": "expert",
+      "spoofing": {
+        "enabled": true,
+        "n_ghosts": 2,
+        "ghost_range_m": 150000,
+        "ghost_radial_vel_mps": -250,
+        "ghost_snr_db": 18
+      },
+      "targets": [
+        {
+          "id": "FJ-01", "threat_type": "fighter_jet",
+          "start_range_km": 200, "start_bearing_deg": 60,
+          "start_altitude_m": 5000, "speed_mps": 400,
+          "heading_toward_radar": true, "rcs_m2": 4.5,
+          "rcs_model": "swerling3", "manoeuvre_sigma_a": 45.0
+        },
+        {
+          "id": "CM-01", "threat_type": "cruise_missile",
+          "start_range_km": 180, "start_bearing_deg": 120,
+          "start_altitude_m": 80, "speed_mps": 285,
+          "heading_toward_radar": true, "rcs_m2": 0.09,
+          "rcs_model": "swerling1", "manoeuvre_sigma_a": 14.0
+        }
+      ]
+    }
+  },
+
+  "radar_presets": {
+    "standard_s_band": {
+      "peak_power_watts": 250000,
+      "carrier_frequency_hz": 3000000000,
+      "pulse_width_sec": 0.000005,
+      "bandwidth_hz": 2000000,
+      "prf_hz": 1000,
+      "n_pulses_per_cpi": 64,
+      "antenna_gain_db": 34,
+      "receiver_noise_figure_db": 4,
+      "max_range_m": 500000
+    },
+    "high_power_l_band": {
+      "peak_power_watts": 1000000,
+      "carrier_frequency_hz": 1300000000,
+      "pulse_width_sec": 0.00001,
+      "bandwidth_hz": 1000000,
+      "prf_hz": 500,
+      "n_pulses_per_cpi": 32,
+      "antenna_gain_db": 30,
+      "receiver_noise_figure_db": 3.5,
+      "max_range_m": 800000
+    },
+    "x_band_precision": {
+      "peak_power_watts": 50000,
+      "carrier_frequency_hz": 9500000000,
+      "pulse_width_sec": 0.000001,
+      "bandwidth_hz": 20000000,
+      "prf_hz": 5000,
+      "n_pulses_per_cpi": 128,
+      "antenna_gain_db": 38,
+      "receiver_noise_figure_db": 5,
+      "max_range_m": 100000
+    }
+  }
+}
